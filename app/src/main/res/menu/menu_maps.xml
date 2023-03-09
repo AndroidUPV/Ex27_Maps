@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2022
+  ~ David de Andrés and Juan Carlos Ruiz
+  ~ Development of apps for mobile devices
+  ~ Universitat Politècnica de València
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/mEnableAddMarkers"
+        android:icon="@drawable/ic_add_markers"
+        android:title="@string/add_markers"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/mDisableAddMarkers"
+        android:icon="@drawable/ic_dont_add_markers"
+        android:title="@string/dont_add_markers"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/mMapType"
+        android:icon="@drawable/ic_map_type"
+        android:title="@string/map_type"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/mNormalMap"
+                    android:checked="true"
+                    android:title="@string/normal_map" />
+                <item
+                    android:id="@+id/mTerrainMap"
+                    android:title="@string/terrain_map" />
+                <item
+                    android:id="@+id/mSatelliteMap"
+                    android:title="@string/satellite_map" />
+            </group>
+        </menu>
+    </item>
+</menu>

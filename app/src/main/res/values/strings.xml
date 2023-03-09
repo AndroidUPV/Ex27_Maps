@@ -1,0 +1,23 @@
+<!--
+  ~ Copyright (c) 2022
+  ~ David de Andrés and Juan Carlos Ruiz
+  ~ Development of apps for mobile devices
+  ~ Universitat Politècnica de València
+  -->
+
+<resources>
+    <string name="app_name">Ex27_Maps</string>
+    <string name="normal_map">Normal map</string>
+    <string name="terrain_map">Terrain map</string>
+    <string name="satellite_map">Satellite map</string>
+    <string name="map_type">Type of map</string>
+    <string name="add_markers">Enable adding markers</string>
+    <string name="dont_add_markers">Disable adding markers</string>
+    <string name="latitude_title">Latitude:</string>
+    <string name="longitude_title">Longitude:</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="slider_description">Select the color of the marker</string>
+    <string name="color_title">Color:</string>
+    <string name="add_marker">Add marker</string>
+</resources>

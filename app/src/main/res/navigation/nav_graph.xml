@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2022
   ~ David de Andrés and Juan Carlos Ruiz
   ~ Development of apps for mobile devices
@@ -12,18 +11,21 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/mapsFragment">
 
+    <!--MapsFragment-->
     <fragment
         android:id="@+id/mapsFragment"
         android:name="upv.dadm.ex27_maps.ui.map.MapsFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_maps" >
+        tools:layout="@layout/fragment_maps">
+        <!--Displays the add marker dialog-->
         <action
             android:id="@+id/actionShowMarkerDetails"
             app:destination="@id/markerDetailsFragment" />
     </fragment>
+    <!--MarkerOptionsFragment-->
     <dialog
         android:id="@+id/markerDetailsFragment"
         android:name="upv.dadm.ex27_maps.ui.map.MarkerOptionsFragment"
-        tools:layout="@layout/fragment_marker"
-        android:label="MarkerDetailsFragment" />
+        android:label="MarkerDetailsFragment"
+        tools:layout="@layout/fragment_marker" />
 </navigation>

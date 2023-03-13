@@ -4,139 +4,152 @@
   ~ Development of apps for mobile devices
   ~ Universitat Politècnica de València
   -->
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--Displays the details of the marker: latitude, longitude, title, snippet and color-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvLatitudeTitle"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/latitude_title"
-        android:textColor="?attr/colorPrimaryVariant"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvLatitude"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvLatitudeTitle"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="39.48264" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvLongitudeTitle"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/longitude_title"
-        android:textColor="?attr/colorPrimaryVariant"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLatitude" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvLongitude"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvLongitudeTitle"
-        app:layout_constraintTop_toBottomOf="@id/tvLatitude"
-        tools:text="-0.34684" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilTitle"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLongitude">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTitle"
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--Non-editable latitude-->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLatitudeTitle"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="ETSINF" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="@string/latitude_title"
+            android:textColor="?attr/colorPrimaryVariant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilDescription"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilTitle">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etDescription"
-            android:layout_width="match_parent"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLatitude"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="UPV, Campus de Vera S/N, 46022, Valencia, Spain" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvLatitudeTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="39.48264" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvColorTitle"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/color_title"
-        android:textColor="?attr/colorPrimaryVariant"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilDescription"
-        app:layout_constraintBottom_toBottomOf="@id/sColor" />
+        <!--Non-editable longitude-->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLongitudeTitle"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/longitude_title"
+            android:textColor="?attr/colorPrimaryVariant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLatitude" />
 
-    <com.google.android.material.slider.Slider
-        android:id="@+id/sColor"
-        android:layout_width="0dp"
-        android:valueFrom="0"
-        android:valueTo="360"
-        android:layout_marginStart="16dp"
-        android:value="180"
-        app:labelBehavior="floating"
-        android:contentDescription="@string/slider_description"
-        app:layout_constraintStart_toEndOf="@id/tvColorTitle"
-        app:layout_constraintEnd_toStartOf="@id/ivColor"
-        app:layout_constraintTop_toBottomOf="@id/tilDescription"
-        android:layout_marginTop="16dp"
-        android:layout_height="wrap_content"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLongitude"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvLongitudeTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvLatitude"
+            tools:text="-0.34684" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleX="2"
-        android:scaleY="2"
-        app:srcCompat="@drawable/ic_add_markers"
-        android:tint="?attr/colorPrimaryVariant"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/tvColorTitle"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!--Marker's title-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTitle"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLongitude">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/bSave"
-        android:layout_marginTop="16dp"
-        android:text="@string/add_marker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ivColor"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="ETSINF" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--Marker's description (snippet)-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDescription"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilTitle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="UPV, Campus de Vera S/N, 46022, Valencia, Spain" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--
+          ~ Marker's color is a Double between 0 and 360,
+          ~ obtained using a Slider and previewed on an ImageView
+          -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvColorTitle"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/color_title"
+            android:textColor="?attr/colorPrimaryVariant"
+            app:layout_constraintBottom_toBottomOf="@id/sColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilDescription" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/slider_description"
+            android:value="180"
+            android:valueFrom="0"
+            android:valueTo="360"
+            app:labelBehavior="floating"
+            app:layout_constraintEnd_toStartOf="@id/ivColor"
+            app:layout_constraintStart_toEndOf="@id/tvColorTitle"
+            app:layout_constraintTop_toBottomOf="@id/tilDescription" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:tint="?attr/colorPrimaryVariant"
+            app:layout_constraintBottom_toBottomOf="@id/tvColorTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_marker" />
+
+        <!--Add marker Button-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/add_marker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivColor" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

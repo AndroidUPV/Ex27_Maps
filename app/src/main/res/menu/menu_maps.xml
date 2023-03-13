@@ -8,18 +8,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--Enable the add marker operation-->
     <item
-        android:id="@+id/mEnableAddMarkers"
+        android:id="@+id/mAddMarkers"
         android:icon="@drawable/ic_add_markers"
         android:title="@string/add_markers"
         app:showAsAction="ifRoom" />
 
+    <!--Enable the remove marker operation-->
     <item
-        android:id="@+id/mDisableAddMarkers"
-        android:icon="@drawable/ic_dont_add_markers"
-        android:title="@string/dont_add_markers"
+        android:id="@+id/mRemoveMarkers"
+        android:icon="@drawable/ic_remove_markers"
+        android:title="@string/remove_markers"
         app:showAsAction="ifRoom" />
 
+    <!--Disable the current marker operation-->
+    <item
+        android:id="@+id/mStopMarkersOperation"
+        android:icon="@drawable/ic_stop_markers_operation"
+        android:title="@string/stop_markers_operation"
+        app:showAsAction="ifRoom" />
+
+    <!--Select the type of map: options are a single choice group-->
     <item
         android:id="@+id/mMapType"
         android:icon="@drawable/ic_map_type"
@@ -27,13 +37,16 @@
         app:showAsAction="ifRoom">
         <menu>
             <group android:checkableBehavior="single">
+                <!--Normal map (default)-->
                 <item
                     android:id="@+id/mNormalMap"
                     android:checked="true"
                     android:title="@string/normal_map" />
+                <!--Terrain map-->
                 <item
                     android:id="@+id/mTerrainMap"
                     android:title="@string/terrain_map" />
+                <!--Satellite map-->
                 <item
                     android:id="@+id/mSatelliteMap"
                     android:title="@string/satellite_map" />

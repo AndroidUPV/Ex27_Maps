@@ -4,7 +4,7 @@
   ~ Development of apps for mobile devices
   ~ Universitat Politècnica de València
   -->
-<!--Fragment that holds the Google Maps view-->
+<!--Holds the Google Maps view-->
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     android:id="@+id/map"

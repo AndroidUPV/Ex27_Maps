@@ -20,9 +20,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.Marker
 import upv.dadm.ex27_maps.R
+import upv.dadm.ex27_maps.databinding.InfoWindowBinding
 
 /**
  * Displays a map and enables adding and removing markers.
@@ -50,6 +53,8 @@ class MapsFragment : Fragment(R.layout.fragment_maps), MenuProvider {
             googleMap = map
             // React to clicks on the InfoWindow
             setInfoWindowClickListener()
+            // Define how to display InfoWindows
+            setInfoWindowAdapter()
             // React to clicks on the Markers
             registerMarkerClickListener()
             // Set up all the required observers
@@ -57,6 +62,30 @@ class MapsFragment : Fragment(R.layout.fragment_maps), MenuProvider {
             // Invalidate the menu to enable/disable the required action elements
             requireActivity().invalidateMenu()
         }
+    }
+
+    /**
+     * Determines how to displays InfoWindow.
+     */
+    private fun setInfoWindowAdapter() {
+        googleMap?.setInfoWindowAdapter(object : InfoWindowAdapter {
+
+            override fun getInfoContents(p0: Marker): View? {
+                return null
+            }
+
+            /**
+             * Create a View to act as frame and set its content.
+             */
+            override fun getInfoWindow(p0: Marker): View {
+                val binding = InfoWindowBinding.inflate(layoutInflater)
+                binding.tvTitleInfoWindow.text = p0.title
+                binding.tvSnippetInfoWindow.text = p0.snippet
+                return binding.root
+
+            }
+
+        })
     }
 
     /**

@@ -1,8 +1,12 @@
 /*
- * Copyright (c) 2022
- * David de Andrés and Juan Carlos Ruiz
- * Development of apps for mobile devices
- * Universitat Politècnica de València
+ * Copyright (c) 2022-2023 Universitat Politècnica de València
+ * Authors: David de Andrés and Juan Carlos Ruiz
+ *          Fault-Tolerant Systems
+ *          Instituto ITACA
+ *          Universitat Politècnica de València
+ *
+ * Distributed under MIT license
+ * (See accompanying file LICENSE.txt)
  */
 
 package upv.dadm.ex27_maps.ui.map
@@ -111,11 +115,25 @@ class MapsFragment : Fragment(R.layout.fragment_maps), MenuProvider {
             list.forEach { markerOptions -> googleMap!!.addMarker(markerOptions) }
         }
 
-        // Recreate the options menu when an the operation mode changes
+        // Recreate the options menu when the operation mode changes
         viewModel.mode.observe(viewLifecycleOwner) {
             requireActivity().invalidateMenu()
         }
 
+        viewModel.mapType.observe(viewLifecycleOwner) {mapType ->
+            when(mapType) {
+                GoogleMap.MAP_TYPE_TERRAIN -> {
+                    googleMap!!.mapType = GoogleMap.MAP_TYPE_TERRAIN
+
+                }
+                GoogleMap.MAP_TYPE_SATELLITE -> {
+                    googleMap!!.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                }
+                else -> {
+                    googleMap!!.mapType = GoogleMap.MAP_TYPE_NORMAL
+                }
+            }
+        }
     }
 
     // Populates the ActionBar with action elements
@@ -167,21 +185,21 @@ class MapsFragment : Fragment(R.layout.fragment_maps), MenuProvider {
 
             // Change the map to normal type
             R.id.mNormalMap -> {
-                googleMap!!.mapType = GoogleMap.MAP_TYPE_NORMAL
+                viewModel.setMapType(GoogleMap.MAP_TYPE_NORMAL)
                 menuItem.isChecked = true
                 true
             }
 
             // Change the map to terrain type
             R.id.mTerrainMap -> {
-                googleMap!!.mapType = GoogleMap.MAP_TYPE_TERRAIN
+                viewModel.setMapType(GoogleMap.MAP_TYPE_TERRAIN)
                 menuItem.isChecked = true
                 true
             }
 
             // Change the map to satellite type
             R.id.mSatelliteMap -> {
-                googleMap!!.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                viewModel.setMapType(GoogleMap.MAP_TYPE_SATELLITE)
                 menuItem.isChecked = true
                 true
             }

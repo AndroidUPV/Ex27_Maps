@@ -15,11 +15,15 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import upv.dadm.ex27_maps.R
 import upv.dadm.ex27_maps.databinding.FragmentMarkerBinding
 
@@ -44,7 +48,7 @@ class MarkerOptionsFragment : BottomSheetDialogFragment(R.layout.fragment_marker
         _binding = FragmentMarkerBinding.bind(view)
 
         // Update the color of the sample location icon whenever the Slider value changes
-        binding.sColor.addOnChangeListener { _, value, _ ->
+        binding.sColor.addOnChangeListener { _, _, _ ->
             binding.ivColor.setColorFilter(
                 Color.HSVToColor(
                     floatArrayOf(
@@ -78,10 +82,14 @@ class MarkerOptionsFragment : BottomSheetDialogFragment(R.layout.fragment_marker
                 dismiss()
             }
         }
-        // Display as location of the marker the position clicked by the user on the map
-        viewModel.latLng.observe(viewLifecycleOwner) { latLng ->
-            binding.tvLatitude.text = latLng.latitude.toString()
-            binding.tvLongitude.text = latLng.longitude.toString()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Display as location of the marker the position clicked by the user on the map
+                viewModel.latLng.collect { latLng ->
+                    binding.tvLatitude.text = latLng.latitude.toString()
+                    binding.tvLongitude.text = latLng.longitude.toString()
+                }
+            }
         }
 
     }

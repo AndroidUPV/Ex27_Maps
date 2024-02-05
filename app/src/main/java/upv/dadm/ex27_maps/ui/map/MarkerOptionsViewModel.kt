@@ -11,11 +11,12 @@
 
 package upv.dadm.ex27_maps.ui.map
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 /**
  * Holds information about the new MarkerOptions.
@@ -23,16 +24,16 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MarkerOptionsViewModel : ViewModel() {
 
     // Backing property for the selected location
-    private val _latLng = MutableLiveData<LatLng>()
+    private val _latLng = MutableStateFlow(LatLng(0.0, 0.0))
 
     // Selected location
-    val latLng: LiveData<LatLng> = _latLng
+    val latLng = _latLng.asStateFlow()
 
     // Backing property for the new MarkerOptions (can be null)
-    private val _markerOptions = MutableLiveData<MarkerOptions?>()
+    private val _markerOptions = MutableStateFlow<MarkerOptions?>(null)
 
     // New MarkerOptions (already added if null)
-    val markerOptions: LiveData<MarkerOptions?> = _markerOptions
+    val markerOptions = _markerOptions.asStateFlow()
 
     /**
      * Sets the location of the new MarkerOptions.
@@ -44,14 +45,12 @@ class MarkerOptionsViewModel : ViewModel() {
     /**
      * Sets the new MarkerOptions.
      */
-    fun setMarkerOptions(options: MarkerOptions) {
-        _markerOptions.value = options
-    }
+    fun setMarkerOptions(options: MarkerOptions) =
+        _markerOptions.update { options }
 
     /**
      * Clear the new MarkerOptions as it has already been added to the map.
      */
-    fun clearMarkerOptions() {
-        _markerOptions.value = null
-    }
+    fun clearMarkerOptions() =
+        _markerOptions.update { null }
 }

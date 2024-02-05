@@ -21,6 +21,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.Marker
+import kotlinx.coroutines.launch
 import upv.dadm.ex27_maps.R
 import upv.dadm.ex27_maps.databinding.InfoWindowBinding
 
@@ -86,7 +89,6 @@ class MapsFragment : Fragment(R.layout.fragment_maps), MenuProvider {
                 binding.tvTitleInfoWindow.text = p0.title
                 binding.tvSnippetInfoWindow.text = p0.snippet
                 return binding.root
-
             }
 
         })
@@ -97,40 +99,55 @@ class MapsFragment : Fragment(R.layout.fragment_maps), MenuProvider {
      */
     private fun setupObservers() {
 
-        // Add the new marker to the map
-        markerViewModel.markerOptions.observe(viewLifecycleOwner) { markerOptions ->
-            if (markerOptions != null) {
-                // Add the marker to the map
-                viewModel.addMarker(markerOptions)
-                // Clear the details for a new marker
-                markerViewModel.clearMarkerOptions()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Add the new marker to the map
+                markerViewModel.markerOptions.collect { markerOptions ->
+                    if (markerOptions != null) {
+                        // Add the marker to the map
+                        viewModel.addMarker(markerOptions)
+                        // Clear the details for a new marker
+                        markerViewModel.clearMarkerOptions()
+                    }
+                }
             }
         }
 
-        // Redraw the markers when markers are added/deleted
-        viewModel.markersList.observe(viewLifecycleOwner) { list ->
-            // Clear the markers from the map
-            googleMap!!.clear()
-            // Go through the list of markers and add each of them o the map
-            list.forEach { markerOptions -> googleMap!!.addMarker(markerOptions) }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Redraw the markers when markers are added/deleted
+                viewModel.markersList.collect { list ->
+                    // Clear the markers from the map
+                    googleMap!!.clear()
+                    // Go through the list of markers and add each of them to the map
+                    list.forEach { markerOptions -> googleMap!!.addMarker(markerOptions) }
+                }
+            }
         }
 
-        // Recreate the options menu when the operation mode changes
-        viewModel.mode.observe(viewLifecycleOwner) {
-            requireActivity().invalidateMenu()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Recreate the options menu when the operation mode changes
+                viewModel.mode.collect { requireActivity().invalidateMenu() }
+            }
         }
 
-        viewModel.mapType.observe(viewLifecycleOwner) {mapType ->
-            when(mapType) {
-                GoogleMap.MAP_TYPE_TERRAIN -> {
-                    googleMap!!.mapType = GoogleMap.MAP_TYPE_TERRAIN
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.mapType.collect { mapType ->
+                    when (mapType) {
+                        GoogleMap.MAP_TYPE_TERRAIN -> {
+                            googleMap!!.mapType = GoogleMap.MAP_TYPE_TERRAIN
+                        }
 
-                }
-                GoogleMap.MAP_TYPE_SATELLITE -> {
-                    googleMap!!.mapType = GoogleMap.MAP_TYPE_SATELLITE
-                }
-                else -> {
-                    googleMap!!.mapType = GoogleMap.MAP_TYPE_NORMAL
+                        GoogleMap.MAP_TYPE_SATELLITE -> {
+                            googleMap!!.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                        }
+
+                        else -> {
+                            googleMap!!.mapType = GoogleMap.MAP_TYPE_NORMAL
+                        }
+                    }
                 }
             }
         }
